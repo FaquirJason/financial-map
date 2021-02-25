@@ -21,13 +21,27 @@ def read_csv(pas,file):
         all_opinions.append(opinions)
 
     return uid, all_opinions 
+
+def pruning(string):
+    index = string.find("，")
+    # print(index)
+    string = string[index+1:]
+
+    return string
+
+
+# return all organization
+def all_organization(pas,file):
+    uid, opinions = read_csv(pas,file)
+    keys = []
+    for item in opinions:
+        keys+= list(item.keys())
+    return keys
+
     
 
 if __name__ == '__main__':
-    uid, opinions = read_csv(".","1111.csv")
-    # print(contents)
-    i = 0
-    # for content in contents:
+    uid, opinions = read_csv(".","市场观点提取20210222.csv")
 
     # workbook = xlwt.Workbook(encoding = 'utf-8')
     # worksheet = workbook.add_sheet('sheet')
@@ -54,7 +68,7 @@ if __name__ == '__main__':
                     # worksheet.write(3*count,1,"organization")
                     # worksheet.write(3*count,2,keys[j])
                     # worksheet.write(3*count,3,keys[j])
-                    csv_write.writerow(["V","opinion",str(uid[i]+str(j)+str(k)),str(dic[keys[j]][k])])
+                    csv_write.writerow(["V","opinion",str(uid[i]+str(j)+str(k)),pruning(str(dic[keys[j]][k]))])
                     # worksheet.write(3*count+1,0,"V")
                     # worksheet.write(3*count+1,1,"opinion")
                     # worksheet.write(3*count+1,2,uid[i]+str(j)+str(k))
@@ -64,9 +78,14 @@ if __name__ == '__main__':
                     # worksheet.write(3*count+2,1,"发布")
                     # worksheet.write(3*count+2,2,keys[j])
                     # worksheet.write(3*count+2,3,uid[i]+str(j)+str(k))
+                    
                     k += 1
                     # count += 1
                 j += 1
             i += 1
+
+    # org = all_organization(".","市场观点提取20210222.csv")
+    # print(org)
+
 
 
